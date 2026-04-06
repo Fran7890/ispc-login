@@ -144,7 +144,7 @@ Este paso comprueba que nadie pueda entrar al sistema sin validar su identidad p
 
 Paso 1.1: Registro de usuario
 
-Endpoint: POST /api/register/
+Endpoint: POST http://localhost:8000/api/register/
 
 Body:  {
     "username": "juan", 
