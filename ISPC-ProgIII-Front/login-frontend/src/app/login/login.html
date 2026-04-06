@@ -1,0 +1,46 @@
+<div class="login-container">
+  <h2>Login</h2>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <div>
+      <label>Username:</label>
+      <input type="text" formControlName="username">
+
+      <small *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+        Username requerido
+      </small>
+    </div>
+
+    <div>
+      <label>Password:</label>
+      <input type="password" formControlName="password">
+
+      <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        Mínimo 6 caracteres
+      </small>
+    </div>
+
+    <!-- Recordarme -->
+    <div class="remember">
+      <input type="checkbox" formControlName="remember">
+      <label>Recordarme</label>
+    </div>
+
+    <!-- Error -->
+    <div class="error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Botón -->
+    <button type="submit" [disabled]="loginForm.invalid || loading">
+      {{ loading ? 'Cargando...' : 'Login' }}
+    </button>
+
+    <!-- Forgot -->
+    <div class="extra-links">
+      <a routerLink="/forgot-password">¿Olvidaste tu contraseña?</a>
+    </div>
+
+  </form>
+</div>

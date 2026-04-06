@@ -1,0 +1,84 @@
+
+
+/* Contenedor tipo glass */
+.login-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 30px;
+
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  color: white;
+}
+
+/* Título */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+/* Placeholder */
+input::placeholder {
+  color: #ddd;
+}
+
+/* Botón */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: linear-gradient(45deg, #00c6ff, #0072ff);
+  color: white;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Error */
+.error {
+  color: #ff6b6b;
+  margin-top: 10px;
+}
+
+/* Links */
+.extra-links {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.extra-links a {
+  color: #00c6ff;
+  text-decoration: none;
+}
+
+/* Checkbox */
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}

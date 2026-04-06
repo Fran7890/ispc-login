@@ -1,0 +1,28 @@
+
+.welcome-container {
+  max-width: 500px;
+  margin: 120px auto;
+  padding: 30px;
+
+  text-align: center;
+  color: white;
+
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+  color: white;
+
+  cursor: pointer;
+}
