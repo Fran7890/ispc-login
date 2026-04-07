@@ -1,46 +1,67 @@
-<div class="login-container">
-  <h2>Login</h2>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="login-container">
+    <h2 class="text-center mb-4">Login</h2>
 
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-    <div>
-      <label>Username:</label>
-      <input type="text" formControlName="username">
+      <div class="mb-3">
+        <label class="form-label">Username:</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          formControlName="username"
+          [class.is-invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+        >
 
-      <small *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
-        Username requerido
-      </small>
-    </div>
+        @if (loginForm.get('username')?.invalid && loginForm.get('username')?.touched) {
+          <div class="invalid-feedback">
+            Username requerido
+          </div>
+        }
+      </div>
 
-    <div>
-      <label>Password:</label>
-      <input type="password" formControlName="password">
+      <div class="mb-3">
+        <label class="form-label">Password:</label>
+        <input 
+          type="password" 
+          class="form-control" 
+          formControlName="password"
+          [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        >
 
-      <small *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-        Mínimo 6 caracteres
-      </small>
-    </div>
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          <div class="invalid-feedback">
+            Mínimo 6 caracteres
+          </div>
+        }
+      </div>
 
-    <!-- Recordarme -->
-    <div class="remember">
-      <input type="checkbox" formControlName="remember">
-      <label>Recordarme</label>
-    </div>
+      <div class="remember mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="checkRem" formControlName="remember">
+        <label class="form-check-label" for="checkRem">Recordarme</label>
+      </div>
 
-    <!-- Error -->
-    <div class="error" *ngIf="errorMessage">
-      {{ errorMessage }}
-    </div>
+      @if (errorMessage) {
+        <div class="alert alert-danger py-2 mb-3" role="alert">
+          {{ errorMessage }}
+        </div>
+      }
 
-    <!-- Botón -->
-    <button type="submit" [disabled]="loginForm.invalid || loading">
-      {{ loading ? 'Cargando...' : 'Login' }}
-    </button>
+      <div class="d-grid">
+        <button type="submit" class="btn" [disabled]="loginForm.invalid || loading">
+          @if (loading) {
+            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+            Cargando...
+          } @else {
+            Login
+          }
+        </button>
+      </div>
 
-    <!-- Forgot -->
-    <div class="extra-links">
-      <a routerLink="/forgot-password">¿Olvidaste tu contraseña?</a>
-    </div>
+      <div class="extra-links mt-3 text-center">
+        <a routerLink="/forgot-password" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
+      </div>
 
-  </form>
+    </form>
+  </div>
 </div>

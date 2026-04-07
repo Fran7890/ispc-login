@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms'; // Quitamos FormGroup de aquí si usamos el tipo inferido
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router'; // Añadimos RouterLink para el enlace de "olvidé contraseña"
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, CommonModule],
+  standalone: true, // Asegúrate de que sea standalone
+  imports: [ReactiveFormsModule, CommonModule, RouterLink], // Importamos RouterLink aquí
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -18,35 +19,36 @@ export class Login {
   loading = false;
   errorMessage = '';
 
-  loginForm: FormGroup = this.fb.group({
-    username: ['', Validators.required],
+  // Tipado fuerte inferido (mejor práctica en versiones recientes)
+  loginForm = this.fb.group({
+    username: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     remember: [false]
   });
 
   onSubmit() {
-    if (this.loginForm.invalid) return;
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched(); // Esto fuerza a que Bootstrap muestre los errores si el usuario da click sin escribir
+      return;
+    }
 
     this.loading = true;
     this.errorMessage = '';
 
+    // Usamos nonNullable si quieres evitar que los valores sean null, pero así está perfecto:
     const { username, password, remember } = this.loginForm.value;
 
     this.http.post<any>('http://localhost:8000/api/login/', { username, password }).subscribe({
       next: (response) => {
-        console.log('Login successful', response);
-
-        // guardar token
-        if (remember) {
-          localStorage.setItem('access', response.access);
-        } else {
-          sessionStorage.setItem('access', response.access);
-        }
-
+        // Manejo del token según el checkbox 'remember'
+        const storage = remember ? localStorage : sessionStorage;
+        storage.setItem('access', response.access);
+        
         this.router.navigate(['/home']);
       },
-      error: () => {
-        this.errorMessage = 'Credenciales incorrectas';
+      error: (err) => {
+        console.error('Login error', err);
+        this.errorMessage = 'Credenciales incorrectas o error de servidor';
         this.loading = false;
       },
       complete: () => {

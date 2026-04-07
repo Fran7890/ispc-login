@@ -11,7 +11,7 @@
 
   border-radius: 15px;
   box-shadow: 0 0 30px rgba(0,0,0,0.5);
-  color: white;
+  color: black;
 }
 
 /* Título */
@@ -21,16 +21,39 @@ h2 {
 }
 
 /* Inputs */
-input {
+input:not([type="checkbox"]) {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
-
-  border: none;
+  
+  /* CAMBIOS AQUÍ */
+  border: 1px solid #000000; /* Borde negro sólido de 1px */
   border-radius: 8px;
-
-  background: rgba(255,255,255,0.2);
+  
+  /* Mantenemos el fondo translúcido */
+  background: rgba(255, 255, 255, 0.2);
   color: white;
+  
+  /* Suavizado para cuando el usuario hace clic */
+  transition: all 0.3s ease;
+  outline: none; 
+}
+
+/* Efecto opcional: Que el borde resalte más cuando el usuario escribe */
+input:not([type="checkbox"]):focus {
+  border: 1.5px solid #000000;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Sombra negra suave */
+}
+
+
+.form-check-input {
+  width: 18px !important; 
+  height: 18px !important;
+  margin: 0 !important;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
 }
 
 /* Placeholder */
